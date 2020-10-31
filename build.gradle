@@ -1,0 +1,45 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+group = 'com.ralohmus'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    compile 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
+
+    annotationProcessor group: 'org.hibernate.orm', name: 'hibernate-jpamodelgen', version: '6.0.0.Alpha6'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.4.1.Final"
+    implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.jsoup:jsoup:1.13.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.liquibase:liquibase-core'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+test {
+    useJUnitPlatform()
+}
