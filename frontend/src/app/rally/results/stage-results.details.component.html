@@ -1,0 +1,61 @@
+<div *ngFor="let alert of alerts">
+  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{alert.msg}}</alert>
+</div>
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "large"
+  color = "white"
+  type = "cube-transition"></ngx-spinner>
+<form [formGroup]="stageResultForm" (ngSubmit)="submitForm()">
+  <div class="modal-header">
+    <h4 class="modal-title">Salvesta uus ralli etapi tulemus</h4>
+    <button type="button" class="close" aria-label="Close"
+            (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="competitor">Sõitja/ kaardilugeja</label>
+      <div class="alert alert-danger" *ngIf="noResult">Vasteid ei leitud</div>
+      <input autocomplete="off" id="competitor" formControlName="competitor" class="form-control"
+             (typeaheadOnSelect)="modelChange($event)"
+             type="text" [typeahead]="suggestions" typeaheadAsync="true"
+             placeholder="Sisesta nimi" [typeaheadItemTemplate]="suggestionTemplate" [value]="suggestionTemplate"
+             (typeaheadNoResults)="noResultsTypeAhead($event)">
+      <ng-template #suggestionTemplate let-item="item">
+    <span>{{item.driver.firstName}} {{item.driver.lastName}}
+      /{{item.coDriver.firstName}} {{item.coDriver.lastName}}  </span>
+      </ng-template>
+      <div *ngIf="competitor.invalid && ((competitor.dirty || competitor.touched ) || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="competitor.errors.required">
+          Sõitja/kaardilugeja nimede väli on kohustuslik
+        </div>
+      </div>
+    </div>
+    <div class="form-inline">
+      <label for="interrupted">Katkestamine</label>
+      <input id="interrupted"  (change)="timeAndInterruptedConditionalValidation()" type="checkbox" class="form-control  ml-3" formControlName="interrupted">
+    </div>
+    <div class="form-group" *ngIf="!interrupted.value">
+      <label for="result">Aeg</label>
+      <input type="text" placeholder="minutid:sekundid,millisekundid" (change)="timeAndInterruptedConditionalValidation()" id="result" class="form-control" formControlName="time">
+      <div *ngIf="time.invalid && ((time.dirty || time.touched) || submitted) && time.errors.pattern"
+           class="alert alert-danger">
+          Tulemus peab olema formaadis: minutid:sekundid,millisekundid
+      </div>
+    </div>
+    <div *ngIf="(interrupted.invalid && ((interrupted.dirty || interrupted.touched) || submitted)) || (time.invalid && ((time.dirty || time.touched) || submitted))"
+         class="alert alert-danger">
+<!--      <div *ngIf="!time || !interrupted">-->
+        Kas etapi tulemus või katkestamise väli peab olema valitud
+<!--      </div>-->
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-success">
+      Salvesta
+    </button>
+  </div>
+</form>

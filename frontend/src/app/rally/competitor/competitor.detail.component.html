@@ -1,0 +1,83 @@
+<form [formGroup]="competitorForm" (ngSubmit)="submitForm()">
+  <div class="modal-header">
+    <h4 class="modal-title">Salvesta võistluspaar</h4>
+    <button type="button" class="close" aria-label="Close"
+            (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="form-group">
+      <label for="competitor-pair-class">Võistluspaari võistlusklass *</label>
+      <input autocomplete="off" id="competitor-pair-class" formControlName="competitionClass" class="form-control"
+             type="text" [typeahead]="suggestions" typeaheadAsync="true"
+             placeholder="Võistlusklassi nimi"  [typeaheadItemTemplate]="suggestionTemplate" [value]="suggestionTemplate">
+      <ng-template #suggestionTemplate let-item="item">
+    <span>{{item}}</span>
+      </ng-template>
+      <div *ngIf="competitionClass.invalid && (competitionClass.dirty || competitionClass.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="competitionClass.errors.required">
+          Võistlusklass on kohustuslik väli
+        </div>
+        <div *ngIf="competitionClass.errors.min">
+          Võistlusklass on kohustuslik väli
+        </div>
+      </div>
+    </div>
+
+    <h2 class="mb-3">Sõitja informatsioon</h2>
+    <div class="form-group">
+      <label for="driver-first-name">Sõitja eesnimi *</label>
+      <input type="text" id="driver-first-name" formControlName="driverFirstName" class="form-control"
+             [ngClass]="{'is-invalid' : (driverFirstName.invalid && (driverFirstName.dirty || driverFirstName.touched || submitted)) }">
+      <div *ngIf="driverFirstName.invalid && (driverFirstName.dirty || driverFirstName.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="driverFirstName.errors.required">
+          Sõitja eesnimi on kohustuslik väli
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="driver-last-name">Sõitja perekonnanimi *</label>
+      <input type="text" id="driver-last-name" formControlName="driverLastName" class="form-control"
+             [ngClass]="{'is-invalid' : (driverLastName.invalid && (driverLastName.dirty || driverLastName.touched || submitted)) }">
+      <div *ngIf="driverLastName.invalid && (driverLastName.dirty || driverLastName.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="driverLastName.errors.required">
+          Sõitja perekonnanimi on kohustuslik väli
+        </div>
+      </div>
+    </div>
+
+    <h2 class="mb-3">Kaardilugeja informatsioon</h2>
+    <div class="form-group">
+      <label for="co-driver-first-name">Kaardilugeja eesnimi *</label>
+      <input type="text" id="co-driver-first-name" formControlName="coDriverFirstName" class="form-control"
+             [ngClass]="{'is-invalid' : (coDriverFirstName.invalid && (coDriverFirstName.dirty || coDriverFirstName.touched || submitted)) }">
+      <div *ngIf="coDriverFirstName.invalid && (coDriverFirstName.dirty || coDriverFirstName.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="coDriverFirstName.errors.required">
+          Kaardilugeja eesnimi on kohustuslik väli
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="co-driver-last-name">Kaardilugeja perekonnanimi *</label>
+      <input type="text" id="co-driver-last-name" formControlName="coDriverLastName" class="form-control"
+             [ngClass]="{'is-invalid' : (coDriverLastName.invalid && (coDriverLastName.dirty || coDriverLastName.touched || submitted)) }">
+      <div *ngIf="coDriverLastName.invalid && (coDriverLastName.dirty || coDriverLastName.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="coDriverLastName.errors.required">
+          Kaardilugeja perekonnanimi on kohustuslik väli
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-success">
+        Salvesta
+      </button>
+    </div>
+  </div>
+</form>

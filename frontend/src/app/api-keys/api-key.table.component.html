@@ -1,0 +1,59 @@
+<div *ngFor="let copiedKey of copiedAlerts">
+  <alert [type]="copiedKey.type" [dismissOnTimeout]="copiedKey.timeout">{{copiedKey.msg}}</alert>
+</div>
+<button class="btn btn-outline-primary mt-3 mb-3" (click)="newApiKey()">Genereeri uus süsteemi integratsiooni võti</button>
+
+<div class="row">
+  <div class="row align-items-center justify-content-center">
+    <h2 class="mt-3 mb-3 col">Süsteemi integratsiooni võtmed</h2>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Süsteemi integratsiooni võti</th>
+        <th scope="col">Aktiivne</th>
+        <th scope="col">Võtme omaniku täisnimi</th>
+        <th scope="col">Võtme omaniku email</th>
+        <th scope="col">Võtme omaniku telefoni number</th>
+        <th scope="col">Tegevused</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let apiKey of apiKeys; index as i">
+        <td>
+          {{(i + 1) + (10 * (page - 1))}}
+        </td>
+        <td>
+          {{apiKey.value}}
+        </td>
+        <td>
+          {{apiKey.active | boolean}}
+        </td>
+        <td>
+          {{apiKey.firstName + " "  + apiKey.lastName}}
+        </td>
+        <td>
+          {{apiKey.email}}
+        </td>
+        <td>
+          {{apiKey.telNumber || "-"}}
+        </td>
+        <td>
+          <button tooltip="Kopeeri" class="btn mr-3" (click)="copyKeyToClipBoard(apiKey.value)">
+            <fa-icon [icon]="copyIcon"></fa-icon>
+          </button>
+          <button class="btn">
+            <fa-icon class="mr-3" (click)="$event.cancelBubble=true; delete(apiKey.id)" [icon]="deleteIcon"
+                     tooltip="Kustuta" placement="top"></fa-icon>
+          </button>
+          <button class="btn btn-link"(click)="$event.cancelBubble=true; invertActiveField(apiKey)" >
+            {{apiKey.active ? "Muuda mitteaktiivseks" : "Muuda aktiivseks"}}
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

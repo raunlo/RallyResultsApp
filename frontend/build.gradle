@@ -1,0 +1,27 @@
+plugins {
+  id 'java'
+  id "com.github.node-gradle.node" version "3.0.1"
+}
+
+group 'com.ralohmus'
+version '1.0.0.RElEASE'
+
+node {
+  version = '12.11.1'
+  npmVersion = '6.11.3'
+  download = true
+
+}
+
+sonarqube {
+  properties {
+    property "sonar.sources", "src"
+  }
+}
+
+jar.dependsOn 'npm_run_build'
+
+
+jar {
+  from 'dist/frontend' into 'static'
+}

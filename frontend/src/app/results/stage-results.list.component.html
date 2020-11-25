@@ -1,0 +1,52 @@
+<div class="modal-header">
+    <h4 class="modal-title">SS{{rallyStage.stageNumber}} {{rallyStage.trackName}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <table class="table table-sm table-bordered">
+        <thead>
+            <tr>
+                <th>
+                #
+                </th>
+                <th>
+                    Sõitja/kaardilugeja nimi
+                </th>
+                <th>
+                    Katkestas
+                </th>
+                <th>
+                    Aeg
+                </th>
+                <th>
+                    Võistlusklass
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let result of rallyStage.stageResults; let i = index">
+                <td>
+                    {{i + 1}}
+                </td>
+                <td>
+                    {{result.competitor | driverAndCoDriverName}}
+                </td>
+                <td>
+                    {{result.interrupted | boolean}}
+                </td>
+                <td>
+                    {{result.time}}
+                </td>
+                <td>
+                    {{result.competitor.competitionClass}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="modal-footer">
+        <button class="btn btn-outline-info" type="button" (click)="modalRef.hide()">
+            Sulge
+        </button>
+    </div>

@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+  <a class="navbar-brand mb-1" href="#">Ralli tulemuste rakendus</a>
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/']" [routerLinkActive]="['active']"
+           [routerLinkActiveOptions]="{exact:true}">Ralli tulemused</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/compare']" [routerLinkActive]="['active']"
+           [routerLinkActiveOptions]="{exact:true}">Ralli tulemuste võrdlemine</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated()">
+        <a class="nav-link" [routerLink]="['/admin/api-keys']" [routerLinkActive]="['active']"
+           [routerLinkActiveOptions]="{exact:true}">Süsteemi integratsiooni võtmed</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated()">
+        <a class="nav-link" [routerLink]="['/admin/rally']" [routerLinkActive]="['active']"
+           [routerLinkActiveOptions]="{exact:true}">Rallid</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated()">
+        <a class="nav-link" [routerLink]="['/admin/rally/competitor']" [routerLinkActive]="['active']">Võistlejad</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <div class="navbar justify-content-end" *ngIf="!!isAuthenticated()">
+        <li class="nav-item " dropdown>
+          <a class="nav-link" >
+            <fa-icon [icon]="user"></fa-icon>
+            {{name}}
+          </a>
+        </li>
+        <li class="nav-item " dropdown >
+          <a (click)="logout()" class="nav-link" style="cursor: pointer" role="button">
+          <fa-icon [icon]="logoutIcon"></fa-icon>
+           </a>
+        </li>
+      </div>
+      <li class="nav-item mr-auto" dropdown placement="bottom-right" *ngIf="!isAuthenticated()">
+          <a class="nav-link" style="cursor: pointer" role="button">
+            <fa-icon (click)="login()" [icon]="signIn"></fa-icon>
+          </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

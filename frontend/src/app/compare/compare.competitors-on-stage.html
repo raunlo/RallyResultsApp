@@ -1,0 +1,36 @@
+<div class="row mt-3">
+  <div class="col-4 input-group">
+    <label class="mr-3" for="rally-name">Ralli võistluse nimi</label>
+    <input autocomplete="off" id="rally-name" [(ngModel)]="rallyName" (change)="onchange()"
+           typeaheadOptionField="login"
+           [typeahead]="suggestions"
+           [typeaheadAsync]="true"
+           (typeaheadOnSelect)="modelChange($event)"
+           [typeaheadItemTemplate]="suggestionTemplate"
+
+           class="form-control"
+           placeholder="Sisesta ja vali ralli nimi">
+  </div>
+  <ng-template #suggestionTemplate let-item="item">
+    <span>{{item.name}}  </span>
+  </ng-template>
+  <div class="col-4 input-group">
+    <label class="mr-3" for="stage_name">Etapi nimi</label>
+    <select (change)="stageSelected()" id="stage_name" [(ngModel)]="selectedRallyStage" class="custom-select mr-sm-2">
+      <option value="undefined">Vali etapp</option>
+      <option [ngValue]="stage" *ngFor="let stage of stages">SS{{stage.stageNumber}} {{stage.trackName}}</option>
+    </select>
+  </div>
+</div>
+
+<div class="mt-3 " *ngIf="!!shorChart">
+  <canvas style="width: 500%" class="d-flex flex-row" baseChart
+          [datasets]="chartData"
+          [labels]="competitorList"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>

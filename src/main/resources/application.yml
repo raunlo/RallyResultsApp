@@ -1,9 +1,0 @@
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: none
-  datasource:
-    initialization-mode: always
-    url: jdbc:postgresql://localhost:5432/rally-results
-    username: postgres
-    password: postgres

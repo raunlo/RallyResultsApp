@@ -1,0 +1,25 @@
+spring:
+  jackson:
+    deserialization:
+      USE_BIG_DECIMAL_FOR_FLOATS: true
+    default-property-inclusion: non_null
+  datasource:
+    initialization-mode: always
+    url: jdbc:postgresql://localhost:5432/rally-results
+    username: postgres
+    password: postgres
+  liquibase:
+    clear-checksums: true
+security:
+  clientId: rally_results
+  clientSecret: rally_secrets
+  adminUsername: admin
+  adminPassword: admin
+  scopes:
+    - read
+    - write
+  grantType: password
+  tokenValiditySeconds: 500000
+rallies:
+  import:
+    cron: 0 0 2 * * SUN

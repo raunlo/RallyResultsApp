@@ -1,0 +1,58 @@
+<div *ngFor="let alert of alerts">
+  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{alert.msg}}</alert>
+</div>
+<form [formGroup]="this.rallyForm" (ngSubmit)="submitForm()">
+  <div class="modal-header">
+    <h4 class="modal-title">Salvesta uus ralli</h4>
+    <button type="button" class="close" aria-label="Close"
+            (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-8 form-group">
+      <label for="rally-name">Ralli nimi *</label>
+      <input type="text" id="rally-name" class="form-control" formControlName="name"
+             [ngClass]="{'is-invalid' : (name.invalid && (name.dirty || name.touched || submitted)) }">
+      <div *ngIf="name.invalid && (name.dirty || name.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          Ralli nimi peab olema valitud
+        </div>
+      </div>
+    </div>
+    <div class="col-8 form-group">
+      <label for="rally-country">Ralli riik *</label>
+      <input type="text" class="form-control" id="rally-country" formControlName="country"
+             [ngClass]="{'is-invalid' : (country.invalid && (country.dirty || country.touched || submitted)) }"/>
+      <div *ngIf="country.invalid && (country.dirty || country.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="country.errors.required">
+          Ralli toimumise riik peab olema valitud
+        </div>
+      </div>
+    </div>
+    <div class="col-8 form-group">
+      <label for="rally-end-date">Ralli toimumise kuupäevad * </label>
+      <input autocomplete="off" id="rally-end-date" type="text" form formControlName="range" class="form-control" bsDaterangepicker
+             [ngClass]="{'is-invalid' : (range.invalid && (range.dirty || range.touched || submitted)) }"
+             [bsConfig]="{
+      dateInputFormat: 'DD/MM/YYYY',
+      returnFocusToInput: true,
+      isAnimated: true,
+      containerClass: 'theme-blue'
+    }">
+      <div *ngIf="range.invalid && (range.dirty || range.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="range.errors.required">
+          Ralli toimumise vahemik peab olema valitud
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success">
+      Salvesta
+    </button>
+  </div>
+</form>

@@ -1,0 +1,62 @@
+<form [formGroup]="apiKeyForm" (ngSubmit)="submitForm()">
+  <div class="modal-header">
+    <h4 class="modal-title">Süsteemi integratsiooni võti</h4>
+    <div *ngFor="let alert of alerts">
+      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{alert.msg}}</alert>
+    </div>
+    <button type="button" class="close" aria-label="Close"
+            (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="col-8 form-group">
+      <label for="api-key-owner-first-name">Süsteemi integratsiooni võtme omaniku eesnimi *</label>
+      <input type="text" id="api-key-owner-first-name" class="form-control" formControlName="firstName"
+             [ngClass]="{'is-invalid' : (firstName.invalid && (firstName.dirty || firstName.touched || submitted)) }">
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="firstName.errors.required">
+          Süsteemi integratsiooni võtme omaniku perekonnanimi on kohustuslik väli
+        </div>
+      </div>
+    </div>
+    <div class="col-8 form-group">
+      <label for="api-key-owner-last-name">Süsteemi integratsiooni võtme omaniku perekonnanimi *</label>
+      <input type="text" class="form-control" id="api-key-owner-last-name" formControlName="lastName"
+             [ngClass]="{'is-invalid' : (lastName.invalid && (lastName.dirty || lastName.touched || submitted)) }"/>
+      <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="lastName.errors.required">
+          Süsteemi integratsiooni võtme omaniku perekonnanimi on kohustuslik väli
+        </div>
+      </div>
+    </div>
+    <div class="col-8 form-group">
+      <label for="api-key-owner-email">Süsteemi integratsiooni võtme omaniku email *</label>
+      <input type="email" class="form-control" id="api-key-owner-email" formControlName="email"
+             [ngClass]="{'is-invalid' : (email.invalid && (email.dirty || email.touched || submitted)) }"/>
+      <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="email.errors.required">
+          Süsteemi integratsiooni võtme omaniku email on kohustuslik väli
+        </div>
+        <div *ngIf="email.errors.email">
+          Email on vales formaadis
+        </div>
+      </div>
+    </div>
+    <div class="col-8 form-group">
+      <label for="api-key-owner-tel">Süsteemi integratsiooni võtme omaniku telefoni number</label>
+      <input class="form-control" type="text" id="api-key-owner-tel" formControlName="telNumber"/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-success">
+      Salvesta
+    </button>
+  </div>
+</form>
+
+

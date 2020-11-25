@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: api-keys-tables-import
+      author: Rauno Lõhmus
+      changes:
+        - sqlFile:
+            path: db/changelog/api/keys/master.sql
+  - changeSet:
+      id: competitor-tables-import
+      author: Rauno Lõhmus
+      changes:
+        - sqlFile:
+            path: db/changelog/competitor/master.sql
+  - changeSet:
+      id: competition-tables-import
+      author: Rauno Lõhmus
+      changes:
+        - sqlFile:
+            path: db/changelog/competition/master.sql
+  - changeSet:
+      id: sequence
+      author: Rauno Lõhmus
+      changes:
+        - sqlFile:
+            path: db/changelog/sequence/master.sql

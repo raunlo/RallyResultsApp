@@ -1,0 +1,70 @@
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "large"
+  color = "white"
+  type = "cube-transition">Palun oodake...</ngx-spinner>
+<div class="row">
+  <div class="">
+    <button class="btn btn-outline-primary mt-3 mb-3" (click)="newRally()">Salvesta uus ralli</button>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <h2 class="mt-3 mb-3 text-center">Rallid</h2>
+</div>
+<div class="row" >
+<div class=" table-responsive">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>
+        #
+      </th>
+      <th>
+        Ralli nimi
+      </th>
+      <th>
+        Ralli toimumise riik
+      </th>
+      <th>
+        Ralli toimumise kuupäevade vahemik
+      </th>
+      <th>
+        Tegevused
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rally of rallies; let i = index;" [attr.data-index]="i" (click)="openRally(rally.id)">
+      <td>
+        {{i + 1}}
+      </td>
+      <td>
+        {{rally.name}}
+      </td>
+      <td>
+        {{rally.country}}
+      </td>
+      <td>
+        {{rally.startDate | date: 'd. MMM y' }} - {{rally.endDate  | date: 'd. MMM y'}}
+      </td>
+      <td>
+        <button class="btn">
+          <fa-icon class="mr-3" tooltip="Lisa või muuda olemasolevaid ralli etappe" placement="top"
+                   routerLink="{{rally.id}}/stages"
+                   [icon]="stageIcon"></fa-icon>
+        </button>
+        <button class="btn">
+          <fa-icon class="mr-3" (click)="$event.cancelBubble=true;deleteRally(rally.id)" [icon]="deleteIcon"
+                   tooltip="kustuta ralli" placement="top"></fa-icon>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+</div>
+<div class="row">
+  <pagination [totalItems]="totalItems" [(ngModel)]="page" (pageChanged)="changePage($event)" previousText="&lsaquo;"
+              nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+</div>

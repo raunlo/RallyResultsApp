@@ -1,0 +1,59 @@
+<form [formGroup]="this.rallyStageForm" (ngSubmit)="submitForm()">
+  <div class="modal-header">
+    <h4 class="modal-title">Salvesta uus rallietapp</h4>
+      <div *ngFor="let alert of alerts">
+      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{alert.msg}}</alert>
+        </div>
+    <button type="button" class="close" aria-label="Close"
+            (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="stage-name" class="col-form-label">Ralli etappi nimi *</label>
+      <input id="stage-name" class="form-control" type="text" formControlName="trackName"
+             [ngClass]="{'is-invalid' : (trackName.invalid && (trackName.dirty || trackName.touched || submitted)) }"/>
+      <div *ngIf="trackName.invalid && (trackName.dirty || trackName.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="trackName.errors.required">
+          Raja nimi peab olema valitud
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="stage-number">Ralli etapi number *</label>
+      <input type="text" id="stage-number" class="form-control" formControlName="stageNumber"
+             [ngClass]="{'is-invalid' : (stageNumber.invalid && (stageNumber.dirty || stageNumber.touched || submitted)) }">
+      <div *ngIf="stageNumber.invalid && (stageNumber.dirty || stageNumber.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="stageNumber.errors.required">
+          Etapi number peab olema valitud
+        </div>
+        <div *ngIf="stageNumber.errors.pattern">
+          Etapi number peab olema positiivne ning nullist suurem
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="stage-length">Raja pikkus</label>
+      <input placeholder="Raja pikkus peab olema komaga arv näiteks 10,0 10,1" type="text" id="stage-length"
+             class="form-control" formControlName="stageLength"
+             [ngClass]="{'is-invalid' : (trackLength.invalid && (trackLength.dirty || trackLength.touched || submitted)) }">
+      <div *ngIf="trackLength.invalid && (trackLength.dirty || trackLength.touched || submitted)"
+           class="alert alert-danger">
+        <div *ngIf="trackLength.errors.required">
+          Raja pikkus on kohustuslik väli
+        </div>
+        <div *ngIf="trackLength.errors.pattern">
+          Raja pikkus peab olema postiivne arv
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-success">
+      Salvesta
+    </button>
+  </div>
+</form>

@@ -1,1 +1,5 @@
 rootProject.name = 'rally-results'
+
+include 'frontend'
+include 'backend'
+
